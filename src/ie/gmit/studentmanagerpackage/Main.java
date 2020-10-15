@@ -1,4 +1,4 @@
-package ie.gmit.testpackage;
+package ie.gmit.studentmanagerpackage;
 
 /**
  * The Main class holds the main method.
