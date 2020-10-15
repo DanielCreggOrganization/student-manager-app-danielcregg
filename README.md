@@ -1,2 +1,2 @@
-# eclipse-java-project-template
-This is a template for an Eclipse Java Project
+# Student Manager App - Daniel Cregg
+This is a Student Manager Application
