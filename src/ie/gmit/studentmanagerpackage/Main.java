@@ -1,5 +1,7 @@
 package ie.gmit.studentmanagerpackage;
 
+import java.io.File;
+
 /**
  * The Main class holds the main method.
  */
@@ -15,17 +17,25 @@ public class Main {
 		boolean addStatus;
 		
 		StudentManager stuManObj = new StudentManager();
+		File studentCSVFile = new File(".\\resources\\students.csv");
+		stuManObj.loadStudentsFromCSVFile(studentCSVFile);
+		System.out.println(stuManObj.findTotalStudents());
 		
-		Student studentObj1 = new Student("G00123458","Alf","Stewart",3);
-    	Student studentObj2 = new Student("G00123459","Sally","Fletcher",4);
-    	Student studentObj3 = new Student("G00123459","Sally","Fletcher",4);
+		Student studentObj1 = new Student("G00123461","Jim","Jones",1);
+		stuManObj.addStudent(studentObj1);
+		System.out.println(stuManObj.findTotalStudents());
 		
-		addStatus = stuManObj.addStudent(studentObj1);
-		System.out.println(addStatus);
-		addStatus = stuManObj.addStudent(studentObj2);
-		System.out.println(addStatus);
-		addStatus = stuManObj.addStudent(studentObj3);
-		System.out.println(addStatus);
+		stuManObj.saveStudentsToCSVFile(studentCSVFile);
+		
+//		Student studentObj1 = new Student("G00123458","Alf","Stewart",3);
+//    	Student studentObj2 = new Student("G00123459","Sally","Fletcher",4);
+		
+//		addStatus = stuManObj.addStudent(studentObj1);
+//		System.out.println(addStatus);
+//		addStatus = stuManObj.addStudent(studentObj2);
+//		System.out.println(addStatus);
+//		addStatus = stuManObj.addStudent(studentObj3);
+//		System.out.println(addStatus);
 		
 		//boolean removeStatus = stuManObj.removeStudent(studentObj2);
 		
