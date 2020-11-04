@@ -11,19 +11,25 @@ public class Main {
 		// Create menu object
 		//Menu menuObject = new Menu();
 		// Run menu start method
-		//menuObject.start();
+		//menuObject.start();#
+		boolean addStatus;
 		
 		StudentManager stuManObj = new StudentManager();
 		
-		Student studentObject1 = new Student("G00123456");
+		Student studentObj1 = new Student("G00123458","Alf","Stewart",3);
+    	Student studentObj2 = new Student("G00123459","Sally","Fletcher",4);
+    	Student studentObj3 = new Student("G00123459","Sally","Fletcher",4);
 		
-		boolean addStatus = stuManObj.addStudent(studentObject1);
-		
+		addStatus = stuManObj.addStudent(studentObj1);
+		System.out.println(addStatus);
+		addStatus = stuManObj.addStudent(studentObj2);
+		System.out.println(addStatus);
+		addStatus = stuManObj.addStudent(studentObj3);
 		System.out.println(addStatus);
 		
-		boolean removeStatus = stuManObj.removeStudent(studentObject1);
+		//boolean removeStatus = stuManObj.removeStudent(studentObj2);
 		
-		System.out.println(removeStatus);
+		//System.out.println(removeStatus);
 		
 		System.out.println("The End");
 		
