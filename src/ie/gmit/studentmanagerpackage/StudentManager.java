@@ -20,37 +20,69 @@ public class StudentManager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// Create Student ArrayList
-	private List<Student> stuObjArrList = null;
+	private List<Student> studentList = null;
 
 	// Constructor
 	public StudentManager() {
-		stuObjArrList = new ArrayList<Student>();
+		studentList = new ArrayList<Student>();
 	}
 
 	// Student Add Method
 	public boolean addStudent(Student studentObject) {
 		
 		// Loop over all Students and check if new Students is already on List
-		for (Student studnetObject : stuObjArrList) {
+		for (Student studnetObject : studentList) {
 			if (studnetObject.getStudentId().equals(studentObject.getStudentId())) {
-				System.out.println("Student NOT Added to Studnet List. Student already on Studnet List!");
+				System.out.println("Student NOT Added to Studnet List. Student already on Student List!");
 				return false;
 			}
 		}
 		
-		return stuObjArrList.add(studentObject);
+		return studentList.add(studentObject);
 
 	}
 
 	// Student Remove Method
 	public boolean removeStudent(Student studentObject) {
-		return stuObjArrList.remove(studentObject);
+		return studentList.remove(studentObject);
 	}
+	
+	public Student deleteStudentByNumber(int number) {
+		try{
+			return studentList.remove(number - 1);
+		} catch(IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			System.out.println("There are " + studentList.size() + "sudents on the list. Please pick a number from 1 to " + studentList.size());
+		}
+		return null;
+	}
+	
 	
 	public int findTotalStudents() {
 		// returns the current number of Students in the ArrayList
-		return stuObjArrList.size();
+		return studentList.size();
 	}
+	
+	public String listAllStudnets() {
+		// Create a StringBuilder object 
+		StringBuilder sb = new StringBuilder(); 
+		int counter = 1;
+
+		sb.append(String.format("%-20s%-20s%-20s%-20s%-20s\n","No.","ID","Name","Surname","Year Of Study"));
+   		sb.append(String.format("===============================================================\n"));
+ 		
+		//sb.append("No.\tID\t\t\t\tName\t\t\tSurname\t\t\tYear of Study\n");
+		//sb.append("----------------------------------------------------------\n");
+		for (Student student : this.studentList) {
+			sb.append(counter +": " + student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n");
+			//sb.append(String.format("%-20s%-20\n",counter, student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n"));
+			counter++;
+		}
+
+		return sb.toString();
+	}
+	
+	
 	
 	public void loadStudentsFromCSVFile(File studentCSVFile) {
 		FileReader studentCSVFileReader = null;
@@ -101,7 +133,7 @@ public class StudentManager implements Serializable {
 			bufferedstudentFileWriterStream.write("ID,First Name,Surname,Year of Study" + "\n");
 			
 			// Write out student data from studentList to buffer and flush it to CSV file
-			for (Student studentObject : stuObjArrList) {
+			for (Student studentObject : studentList) {
 				 bufferedstudentFileWriterStream.write(studentObject.getStudentId() + ","
 				 + studentObject.getFirstName() + "," + studentObject.getSurname() +
 				 "," + studentObject.getYearOfStudy() + "\n");
