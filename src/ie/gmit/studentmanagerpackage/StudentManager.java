@@ -31,8 +31,8 @@ public class StudentManager implements Serializable {
 	public boolean addStudent(Student studentObject) {
 		
 		// Loop over all Students and check if new Students is already on List
-		for (Student studnetObject : studentList) {
-			if (studnetObject.getStudentId().equals(studentObject.getStudentId())) {
+		for (Student student : studentList) {  // Foreach student in the studentList
+			if (student.getStudentId().equals(studentObject.getStudentId())) {
 				System.out.println("Student NOT Added to Studnet List. Student already on Student List!");
 				return false;
 			}
