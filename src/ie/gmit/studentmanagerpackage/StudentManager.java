@@ -18,7 +18,7 @@ import java.util.List;
 public class StudentManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	// Create Student ArrayList
 	private List<Student> studentList = null;
 
@@ -29,15 +29,15 @@ public class StudentManager implements Serializable {
 
 	// Student Add Method
 	public boolean addStudent(Student studentObject) {
-		
+
 		// Loop over all Students and check if new Students is already on List
-		for (Student student : studentList) {  // Foreach student in the studentList
+		for (Student student : studentList) { // Foreach student in the studentList
 			if (student.getStudentId().equals(studentObject.getStudentId())) {
 				System.out.println("Student NOT Added to Studnet List. Student already on Student List!");
 				return false;
 			}
 		}
-		
+
 		return studentList.add(studentObject);
 
 	}
@@ -46,49 +46,48 @@ public class StudentManager implements Serializable {
 	public boolean removeStudent(Student studentObject) {
 		return studentList.remove(studentObject);
 	}
-	
+
 	public Student deleteStudentByNumber(int number) {
-		try{
+		try {
 			return studentList.remove(number - 1);
-		} catch(IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
-			System.out.println("There are " + studentList.size() + "sudents on the list. Please pick a number from 1 to " + studentList.size());
+			System.out.println("There are " + studentList.size()
+					+ "sudents on the list. Please pick a number from 1 to " + studentList.size());
 		}
 		return null;
 	}
-	
-	
+
 	public int findTotalStudents() {
 		// returns the current number of Students in the ArrayList
 		return studentList.size();
 	}
-	
+
 	public String listAllStudnets() {
-		// Create a StringBuilder object 
-		StringBuilder sb = new StringBuilder(); 
+		// Create a StringBuilder object
+		StringBuilder sb = new StringBuilder();
 		int counter = 1;
 
-		sb.append(String.format("%-20s%-20s%-20s%-20s%-20s\n","No.","ID","Name","Surname","Year Of Study"));
-   		sb.append(String.format("===============================================================\n"));
- 		
-		//sb.append("No.\tID\t\t\t\tName\t\t\tSurname\t\t\tYear of Study\n");
-		//sb.append("----------------------------------------------------------\n");
+		sb.append(String.format("%-20s%-20s%-20s%-20s%-20s\n", "No.", "ID", "Name", "Surname", "Year Of Study"));
+		sb.append(String.format("===============================================================\n"));
+
+		// sb.append("No.\tID\t\t\t\tName\t\t\tSurname\t\t\tYear of Study\n");
+		// sb.append("----------------------------------------------------------\n");
 		for (Student student : this.studentList) {
-			sb.append(counter +": " + student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n");
-			//sb.append(String.format("%-20s%-20\n",counter, student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n"));
+			sb.append(counter + ": " + student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n");
+			// sb.append(String.format("%-20s%-20\n",counter,
+			// student.findAllFieldValuesInCSVFormat().replace(",", "\t\t") + "\n"));
 			counter++;
 		}
 
 		return sb.toString();
 	}
-	
-	
-	
+
 	public void loadStudentsFromCSVFile(File studentCSVFile) {
 		FileReader studentCSVFileReader = null;
 		BufferedReader bufferedStudentCSVFileReader = null;
 		String bufferData = null; // Used to store lines of data we read from the buffer
-		
+
 		// Create a file reader
 		try {
 			studentCSVFileReader = new FileReader(studentCSVFile);
@@ -96,7 +95,7 @@ public class StudentManager implements Serializable {
 			bufferedStudentCSVFileReader = new BufferedReader(studentCSVFileReader);
 			// Read first line of file and discard it. It contains column headers.
 			bufferedStudentCSVFileReader.readLine();
-			
+
 			while ((bufferData = bufferedStudentCSVFileReader.readLine()) != null) {
 				// System.out.println(bufferData);
 				String[] studentFieldValues = bufferData.split(",");
@@ -121,9 +120,9 @@ public class StudentManager implements Serializable {
 			} catch (IOException IOExc) {
 				IOExc.printStackTrace();
 			} // End catch
-		} // End finally	
+		} // End finally
 	} // End load method
-	
+
 	public void saveStudentsToCSVFile(File studentDBFile) {
 		FileWriter studentFileWriterStream = null;
 		BufferedWriter bufferedstudentFileWriterStream = null;
@@ -131,13 +130,13 @@ public class StudentManager implements Serializable {
 			studentFileWriterStream = new FileWriter(studentDBFile);
 			bufferedstudentFileWriterStream = new BufferedWriter(studentFileWriterStream);
 			bufferedstudentFileWriterStream.write("ID,First Name,Surname,Year of Study" + "\n");
-			
+
 			// Write out student data from studentList to buffer and flush it to CSV file
 			for (Student studentObject : studentList) {
-				 bufferedstudentFileWriterStream.write(studentObject.getStudentId() + ","
-				 + studentObject.getFirstName() + "," + studentObject.getSurname() +
-				 "," + studentObject.getYearOfStudy() + "\n");
-				//bufferedstudentFileWriterStream.write(studentObject.findAllFieldValuesInCSVFormat() + "\n");
+				bufferedstudentFileWriterStream.write(studentObject.getStudentId() + "," + studentObject.getFirstName()
+						+ "," + studentObject.getSurname() + "," + studentObject.getYearOfStudy() + "\n");
+				// bufferedstudentFileWriterStream.write(studentObject.findAllFieldValuesInCSVFormat()
+				// + "\n");
 				bufferedstudentFileWriterStream.flush(); // Flushes buffer which transfers buffer data to the file
 			}
 			System.out.println("Saved Students List to CSV file successfully!");
@@ -158,7 +157,7 @@ public class StudentManager implements Serializable {
 			} // End catch
 		} // End finally
 	} // End Save method
-	
+
 	public StudentManager loadStudentManagerObjectFromFile(File studentObjectsFile) {
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
@@ -192,7 +191,7 @@ public class StudentManager implements Serializable {
 		}
 		return sm; // Returns null if no object is read in.
 	}
-	
+
 	public void saveStudentManagerObjectToFile(File studentObjectsFile) {
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
@@ -218,9 +217,7 @@ public class StudentManager implements Serializable {
 				e.printStackTrace();
 			} // End catch
 		} // End finally
-		
+
 	}
-	
-	
-	
+
 } // End Class
