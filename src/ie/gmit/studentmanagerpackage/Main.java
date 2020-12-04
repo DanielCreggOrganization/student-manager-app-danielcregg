@@ -21,7 +21,10 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-	
+		
+		int noOfCmdLineArgs = 0;	// Used to set stage title
+		String cmdLineArgs = null;	// Used to set stage title
+		
 		/* Preparing the Scenes */
 		// Create gridpane node to use as root node of scene and to arrnage child nodes logically
 		GridPane gridPane1 = new GridPane();
@@ -90,6 +93,7 @@ public class Main extends Application {
 				//sm.saveStudentManagerObjectToFile(studentObjectsFile);
 				sm = sm.loadStudentManagerObjectFromFile(studentObjectsFile);
 				if (sm == null) {
+					sm = new StudentManager();
 					taMyOutput.setText("ERROR: DB path " + tfLoadStudentFilePath.getText() + " does not exist\n");
 					taMyOutput.appendText("Please check DB path and try again");
 					tfLoadStudentFilePath.clear();
@@ -198,8 +202,26 @@ public class Main extends Application {
 		// Create scene and add the root node i.e. the gridpane
 		Scene scene1 = new Scene(gridPane1, 600, 450);
 		// Preparing the Stage (i.e. the container of any JavaFX application)
-        // Setting the title to Stage.
-		primaryStage.setTitle("Student Manager Application");
+        
+		// Set Stage Title
+		
+		// Find number of command line arguments supplied 
+		noOfCmdLineArgs = getParameters().getRaw().size();
+		// If command line arguments have been provided then set the title to 
+		// them. If none were provided then set title to default value.
+		if (noOfCmdLineArgs > 0) {
+			// Get command line arguments as String
+			cmdLineArgs = getParameters().getRaw().toString();
+			//System.out.println(cmdLineArgs);
+			// Remove unwanted characters ([ and ] and ,)from string
+			cmdLineArgs = cmdLineArgs.replaceAll("\\[|\\]|\\,", "");
+			//System.out.println(cmdLineArgs);
+			primaryStage.setTitle(cmdLineArgs);
+		} else {
+			// Default value
+			primaryStage.setTitle("Student Manager Application");
+		}
+		
 		// Setting the scene to Stage
 		primaryStage.setScene(scene1);
 		// Displaying the stage

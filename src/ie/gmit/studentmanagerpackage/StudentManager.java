@@ -168,6 +168,7 @@ public class StudentManager implements Serializable {
 			ois = new ObjectInputStream(fis);
 			sm = (StudentManager) ois.readObject();
 		} catch (FileNotFoundException e) {
+			System.out.println("hi mom");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -187,6 +188,8 @@ public class StudentManager implements Serializable {
 				e.printStackTrace();
 			} // End catch
 		} // End finally
+		if (sm == null) {
+		}
 		return sm; // Returns null if no object is read in.
 	}
 	
